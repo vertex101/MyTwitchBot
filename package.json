@@ -1,0 +1,23 @@
+{
+  "name": "mytwitchbot",
+  "version": "1.0.0",
+  "description": "A custom made Twitch Bot being made for my channel",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vertex101/MyTwitchBot.git"
+  },
+  "author": "Vertex101",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vertex101/MyTwitchBot/issues"
+  },
+  "homepage": "https://github.com/vertex101/MyTwitchBot#readme",
+  "dependencies": {
+    "modern-rcon": "^1.0.3",
+    "tmi.js": "^1.4.2"
+  }
+}
