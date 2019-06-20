@@ -22,6 +22,10 @@ let client = new tmi.client(options);
 // Connect the client to the server..
 client.connect();
 
+client.on('connected', (address, port) => {
+    client.say("#rusty_blitzcrank", "!grab");
+});
+
 client.on("chat", (channel, userstate, message, self) => {
     // Don't listen to my own messages..
     if (self) return;
