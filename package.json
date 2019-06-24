@@ -18,6 +18,7 @@
   "homepage": "https://github.com/vertex101/MyTwitchBot#readme",
   "dependencies": {
     "modern-rcon": "^1.0.3",
+    "requests": "^0.2.2",
     "tmi.js": "^1.4.2"
   }
 }
