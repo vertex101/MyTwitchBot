@@ -19,6 +19,7 @@
   "dependencies": {
     "modern-rcon": "^1.0.3",
     "requests": "^0.2.2",
+    "sqlite3": "^4.0.9",
     "tmi.js": "^1.4.2"
   }
 }

@@ -2,7 +2,8 @@ const tmi = require('tmi.js');
 var request = require('request');
 const config = require('./config/cfg.json');
 const fs = require('fs');
-
+var gem2120 = []
+var gem2123 = []
 let options = {
     options: {
         debug: true
@@ -15,35 +16,76 @@ let options = {
         username: config.twitch.nick,
         password: config.twitch.oauth
     },
-    channels: ["#rusty_blitzcrank", "finncapp", "vertex101"]
+    channels: ["#rusty_blitzcrank", "#finncapp", "#sketch", "#ixixghostxixi", "#vertex101"]
 };
-
 let client = new tmi.client(options);
-
 // Connect the client to the server..
 client.connect();
-
 client.on("chat", (channel, user, message, self) => {
     // Don't listen to my own messages..
     if (self) return;
     // Do your stuff.
     msg = message.split(" ");
-    if(channel == "#finncapp" || channel == "#vertex101"){
-        if(user.username == channel.replace("#", "") || user.username == "vertex101"){
+    if(channel == "#finncapp" || channel == "#sketch" || channel == "#ixixghostxixi" || channel == "#vertex101"){
+        if(user.username == channel.replace("#", "") || user.username == "vertex101" || user.mod){
             if(msg[0] == "!ex"){
-                request('https://poe.ninja/api/Data/GetCurrencyOverview?league=Legion', function (error, response, body) {
+                request('https://api.poe.watch/item?id=142', function (error, response, body) {
                     pullData = JSON.parse(body);
                     setTimeout(function () {
-                        client.say(channel, "1 Exalted Orb is equal to " + pullData.lines[2].chaosEquivalent + " Chaos")
+                        client.say(channel, "1 Exalted Orb is equal to " + pullData.leagues[0].median + " Chaos")
                     }, 3000); 
+                });
+            }
+            if(msg[0] == "!23") {
+                request("https://api.poe.watch/get?league=Legion&category=gem", function (error, responce, body) {
+                    top523 = JSON.parse(body);
+                    top523.forEach(function (fruit) {
+                        if(fruit.gemLevel == "21" && fruit.gemQuality == "23" && fruit.change != "0") {
+                            gem2123.push(fruit.name+":"+fruit.exalted.toFixed(2))
+                        }
+                    });
+                    setTimeout(function() {
+                        var gem1 = gem2123[0].split(":")
+                        var gem2 = gem2123[1].split(":")
+                        var gem3 = gem2123[2].split(":")
+                        var gem4 = gem2123[3].split(":")
+                        var gem5 = gem2123[4].split(":")
+                        client.say(channel, "Top 5 21/23 GEMS 1) "
+                            + gem1[0] + " - " + gem1[1]
+                            + "ex 2) " + gem2[0] + " - " + gem2[1]
+                            + "ex 3) " + gem3[0] + " - " + gem3[1]
+                            + "ex 4) " + gem4[0] + " - " + gem4[1]
+                            + "ex 5) " + gem5[0] + " - " + gem5[1] + "ex")
+                    }, 3000)
+                });
+            }
+            if(msg[0] == "!20") {
+                request("https://api.poe.watch/get?league=Legion&category=gem", function (error, responce, body) {
+                    top520 = JSON.parse(body);
+                    top520.forEach(function (fruit) {
+                        if(fruit.gemLevel == "21" && fruit.gemQuality == "20" && fruit.change != "0") {
+                            gem2120.push(fruit.name+":"+fruit.exalted.toFixed(2))
+                        }
+                    });
+                    setTimeout(function() {
+                        var gem1 = gem2120[0].split(":")
+                        var gem2 = gem2120[1].split(":")
+                        var gem3 = gem2120[2].split(":")
+                        var gem4 = gem2120[3].split(":")
+                        var gem5 = gem2120[4].split(":")
+                        client.say(channel, "Top 5 21/20 GEMS 1) "
+                            + gem1[0] + " - " + gem1[1]
+                            + "ex 2) " + gem2[0] + " - " + gem2[1]
+                            + "ex 3) " + gem3[0] + " - " + gem3[1]
+                            + "ex 4) " + gem4[0] + " - " + gem4[1]
+                            + "ex 5) " + gem5[0] + " - " + gem5[1] + "ex")
+                    }, 3000)
                 });
             }
         }
     }
 });
-
 function sendCMD() {
     client.say("#rusty_blitzcrank", "!grab");
   }
-
 setInterval(sendCMD, 2100000)
