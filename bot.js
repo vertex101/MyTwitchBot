@@ -4,6 +4,8 @@ const config = require('./config/cfg.json');
 const fs = require('fs');
 var gem2120 = []
 var gem2123 = []
+var jewel = []
+var timeless = []
 let options = {
     options: {
         debug: true
@@ -79,6 +81,50 @@ client.on("chat", (channel, user, message, self) => {
                             + "ex 3) " + gem3[0] + " - " + gem3[1]
                             + "ex 4) " + gem4[0] + " - " + gem4[1]
                             + "ex 5) " + gem5[0] + " - " + gem5[1] + "ex")
+                    }, 3000)
+                });
+            }
+            if(msg[0] == "!jewel") {
+                request("https://api.poe.watch/get?league=Legion&category=jewel", function (error, responce, body) {
+                    top520 = JSON.parse(body);
+                    top520.forEach(function (fruit) {
+                        jewel.push(fruit.name+":"+fruit.exalted.toFixed(2))
+                    });
+                    setTimeout(function() {
+                        var gem1 = jewel[0].split(":")
+                        var gem2 = jewel[1].split(":")
+                        var gem3 = jewel[2].split(":")
+                        var gem4 = jewel[3].split(":")
+                        var gem5 = jewel[4].split(":")
+                        client.say(channel, "Top 5 JEWELS 1) "
+                            + gem1[0] + " - " + gem1[1]
+                            + "ex 2) " + gem2[0] + " - " + gem2[1]
+                            + "ex 3) " + gem3[0] + " - " + gem3[1]
+                            + "ex 4) " + gem4[0] + " - " + gem4[1]
+                            + "ex 5) " + gem5[0] + " - " + gem5[1] + "ex")
+                    }, 3000)
+                });
+            }
+            if(msg[0] == "!timeless") {
+                request("https://api.poe.watch/get?league=Legion&category=jewel", function (error, responce, body) {
+                    top520 = JSON.parse(body);
+                    top520.forEach(function (fruit) {
+                        if(fruit.type == "Timeless Jewel") {
+                            timeless.push(fruit.name+":"+fruit.mean.toFixed(2))
+                        }
+                    });
+                    setTimeout(function() {
+                        var gem1 = timeless[0].split(":")
+                        var gem2 = timeless[1].split(":")
+                        var gem3 = timeless[2].split(":")
+                        var gem4 = timeless[3].split(":")
+                        var gem5 = timeless[4].split(":")
+                        client.say(channel, "Top 5 TIMELESS JEWELS 1) "
+                            + gem1[0] + " - " + gem1[1]
+                            + "c 2) " + gem2[0] + " - " + gem2[1]
+                            + "c 3) " + gem3[0] + " - " + gem3[1]
+                            + "c 4) " + gem4[0] + " - " + gem4[1]
+                            + "c 5) " + gem5[0] + " - " + gem5[1] + "c")
                     }, 3000)
                 });
             }
