@@ -1,2 +1,2 @@
 # MyTwitchBot
-A custom made Twitch Bot being made
+A custom made Twitch Bot
