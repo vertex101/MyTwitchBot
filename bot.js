@@ -128,6 +128,22 @@ client.on("chat", (channel, user, message, self) => {
                     }, 3000)
                 });
             }
+            if(msg[0] == "!hunter"){
+                request('https://api.poe.watch/item?id=3891', function (error, response, body) {
+                    pullData = JSON.parse(body);
+                    setTimeout(function () {
+                        client.say(channel, "HeadHunter is worth " + pullData.leagues[0].exalted.toFixed(2) + "ex")
+                    }, 3000); 
+                });
+            }
+            if(msg[0] == "!mirror"){
+                request('https://api.poe.watch/item?id=3283', function (error, response, body) {
+                    pullData = JSON.parse(body);
+                    setTimeout(function () {
+                        client.say(channel, "Mirror of Kalandra is worth " + pullData.leagues[0].exalted.toFixed(2) + "ex")
+                    }, 3000); 
+                });
+            }
         }
     }
 });
