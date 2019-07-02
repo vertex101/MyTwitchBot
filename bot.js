@@ -151,7 +151,7 @@ client.on("chat", (channel, user, message, self) => {
         }
     }
 });
-
+//code for the itemdata download to file
 setInterval(function () {
     request('https://api.poe.watch/itemdata', function (error, response, body) {
         let data = JSON.stringify(body, null, 4);
@@ -160,7 +160,7 @@ setInterval(function () {
         });
     });
   }, 86400000)
-
+//nut grab for rusty channel
 setInterval(function () {
     client.say("#rusty_blitzcrank", "!grab");
   }, 2100000)
