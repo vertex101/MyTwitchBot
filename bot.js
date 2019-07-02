@@ -2,6 +2,7 @@ const tmi = require('tmi.js');
 var request = require('request');
 const config = require('./config/cfg.json');
 const fs = require('fs');
+global.__basedir = __dirname;
 var gem2120 = []
 var gem2123 = []
 var jewel = []
@@ -29,7 +30,7 @@ client.on("chat", (channel, user, message, self) => {
     // Do your stuff.
     msg = message.split(" ");
     if(channel == "#finncapp" || channel == "#sketch" || channel == "#ixixghostxixi" || channel == "#vertex101"){
-        if(user.username == channel.replace("#", "") || user.username == "vertex101" || user.mod){
+        if(user.username == channel.replace("#", "") || user.username == "vertex101" || user.mod || user.username == "ixixghostxixi"){
             if(msg[0] == "!ex"){
                 request('https://api.poe.watch/item?id=142', function (error, response, body) {
                     pullData = JSON.parse(body);
@@ -144,10 +145,22 @@ client.on("chat", (channel, user, message, self) => {
                     }, 3000); 
                 });
             }
+            if(msg[0] == "!icheck") {
+
+            }
         }
     }
 });
-function sendCMD() {
+
+setInterval(function () {
+    request('https://api.poe.watch/itemdata', function (error, response, body) {
+        let data = JSON.stringify(body, null, 4);
+        fs.writeFile(__dirname + '/config/poe-data.json', data.replace(/\\/g, ""), (err) => {  
+            if (err) {console.error(err);};
+        });
+    });
+  }, 86400000)
+
+setInterval(function () {
     client.say("#rusty_blitzcrank", "!grab");
-  }
-setInterval(sendCMD, 2100000)
+  }, 2100000)
