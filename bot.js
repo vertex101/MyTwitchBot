@@ -145,8 +145,13 @@ client.on("chat", (channel, user, message, self) => {
                     }, 3000); 
                 });
             }
-            if(msg[0] == "!icheck") {
-
+            if(msg[0] == "!enchant") { 
+                request('https://api.poe.watch/item?id=3694', function (error, response, body) {
+                    pullData = JSON.parse(body);
+                    setTimeout(function () {
+                        client.say(channel, pullData.name + " is worth " + pullData.leagues[0].exalted.toFixed(2) + "ex")
+                    }, 3000); 
+                });
             }
         }
     }
