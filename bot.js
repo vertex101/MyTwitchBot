@@ -2,7 +2,7 @@ const config = require('./config/cfg.json');
 const tmi = require('tmi.js');
 const request = require('request');
 const Rcon = require('modern-rcon');
-const rcon = new Rcon(config.server.host, config.server.port, config.server.passw);
+const rcon = new Rcon(config.server.host, config.server.port, config.server.passw, 5000);
 const fs = require('fs');
 global.__basedir = __dirname;
 var gem2120 = []
@@ -159,21 +159,21 @@ client.on("chat", (channel, user, message, self) => {
         }
     }
     //Sketch sub server commands
-    if(channel == "#sketch") {
+    if(channel == "#sketch" || channel == "#vertex101") {
         if(user.username == channel.replace("#", "") || user.username == "vertex101" || user.mod) {
             //add a user to the whitelist
             if(msg[0] == "!wadd") {
-                rcon.connect().then(() => {
-                        return rcon.send('whitelist add ' + msg[1]);
-                    }).then(res => {
-                        setTimeout(function() { client.say(channel, res); }, 3000)
-                    }).then(() => {
-                        return rcon.send('whitelist reload');
-                    }).then(res => {
-                        setTimeout(function() { client.say(channel, res); }, 3000)
-                    }).then(() => {
-                        return rcon.disconnect();
-                });
+                    rcon.connect().then(() => {
+                            return rcon.send('whitelist add ' + msg[1]);
+                        }).then(res => {
+                            setTimeout(function() { client.say(channel, res); }, 3000)
+                        }).then(() => {
+                            return rcon.send('whitelist reload');
+                        }).then(res => {
+                            setTimeout(function() { client.say(channel, res); }, 4500)
+                        }).then(() => {
+                            return rcon.disconnect();
+                    });
             }
             //remove a user from the whitelist
             if(msg[0] == "!wremove") {
@@ -184,7 +184,7 @@ client.on("chat", (channel, user, message, self) => {
                     }).then(() => {
                         return rcon.send('whitelist reload');
                     }).then(res => {
-                        setTimeout(function() { client.say(channel, res); }, 3000)
+                        setTimeout(function() { client.say(channel, res); }, 4500)
                     }).then(() => {
                         return rcon.disconnect();
                 });
