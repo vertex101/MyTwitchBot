@@ -1,10 +1,8 @@
 {
   "name": "mytwitchbot",
   "version": "1.0.0",
-  "description": "A custom made Twitch Bot being made for my channel",
-  "main": "bot.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node SubServerBot.js"
   },
   "repository": {
     "type": "git",

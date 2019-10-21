@@ -1,1 +1,1 @@
-start "" "%ProgramFiles%\Git\git-bash.exe" -c "node SubServerBot.js"
+start "" "%ProgramFiles%\Git\git-bash.exe" -c "nodemon start"
