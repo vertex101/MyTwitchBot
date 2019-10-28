@@ -2,8 +2,12 @@ const config = require('./config/cfg.json');
 const tmi = require('tmi.js');
 const Rcon = require('modern-rcon');
 const fs = require('fs');
+const notifier = require('node-notifier');
+const readline = require('readline');
+const rl = readline.createInterface(process.stdin, process.stdout);
 const rcon = new Rcon(config.server.host, config.server.port, config.server.passw, 5000);
 var blacklist = []
+var isLive = false;
 let options = {
     options: {
         debug: true
@@ -93,4 +97,19 @@ client.on("chat", (channel, user, message, self) => {
             }
         }
     }
+});
+
+if(isLive = false) {
+    notifier.notify({
+        title: 'Stream Live',
+        message: 'Sketch has went live!'
+    });
+    isLive = true;
+}
+
+rl.setPrompt('>');
+rl.prompt();
+rl.on('line', function(line) {
+    client.say("#sketch", line)
+    rl.prompt();
 });
